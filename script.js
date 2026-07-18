@@ -418,8 +418,8 @@ const INSTAGRAM_HANDLE = "thebrekkieclub"; // without the @
   const list = document.getElementById('popup-list');
   const empty = document.getElementById('popup-empty');
 
-  function mapsLink(address){
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  function mapsLink(name){
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`;
   }
 
   function renderPopups(popups) {
@@ -442,7 +442,7 @@ const INSTAGRAM_HANDLE = "thebrekkieclub"; // without the @
             <h3>${next.location}</h3>
             <div class="popup-meta">${next.date} · ${next.time} · ${next.address}</div>
           </div>
-          <a class="btn btn-gold" href="${mapsLink(next.address)}" target="_blank" rel="noopener">Get Directions</a>
+          <a class="btn btn-gold" href="${mapsLink(next.location)}" target="_blank" rel="noopener">Get Directions</a>
         </div>
       `;
     }
