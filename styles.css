@@ -20,9 +20,25 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url('fonts/LibreBaskerville-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url('fonts/LibreBaskerville-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root{
-  --font-brand:'TAN Tangkiwood', 'Fraunces', serif;
-  --font-ui:'DM Sans', sans-serif;
+  --font-brand:'Libre Baskerville', serif;
+  --font-ui:'Libre Baskerville', serif;
   --forest:#1e3a3d;
   --forest-dark:#132728;
   --cream:#f4ebd0;
@@ -58,7 +74,7 @@ a{ color:inherit; }
 .eyebrow{
   font-family:var(--font-brand);
   font-weight:600;
-  font-size:12.5px;
+  font-size:25px;
   letter-spacing:0.22em;
   text-transform:uppercase;
 }
@@ -82,7 +98,7 @@ a:focus-visible, button:focus-visible{
 
 /* ===== HERO ===== */
 .hero{
-  background: linear-gradient(rgba(19, 39, 40, 0.82), rgba(19, 39, 40, 0.94)), url('assets/messy-kitchen.jpg');
+  background: linear-gradient(rgba(19, 39, 40, 0.82), rgba(19, 39, 40, 0.94)), url('assets/kitchen_image.png');
   background-size: cover;
   background-position: center;
   color:var(--cream);
@@ -124,7 +140,7 @@ a:focus-visible, button:focus-visible{
 .hero-sub{
   margin-top:26px;
   max-width:480px;
-  font-size:17px;
+  font-size:15px;
   color:rgba(244,235,208,0.82);
 }
 
@@ -252,7 +268,8 @@ a:focus-visible, button:focus-visible{
   display: flex;
   flex-direction: column;
   gap: 48px;
-  max-width: 960px;
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
 }
 .menu-category {
@@ -271,56 +288,137 @@ a:focus-visible, button:focus-visible{
   text-transform: uppercase;
 }
 .menu-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: clamp(16px, 2.5vw, 40px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 2px;
+}
+.menu-grid::-webkit-scrollbar { display: none; }
+.menu-carousel { position: relative; }
+.menu-carousel-control {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--forest);
+  color: var(--cream);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(19, 39, 40, 0.22);
+  transform: translateY(-50%);
+}
+.menu-carousel-control--prev { left: -18px; }
+.menu-carousel-control--next { right: -18px; }
+@media (min-width: 1100px) {
+  .menu-carousel-control--prev { left: -72px; }
+  .menu-carousel-control--next { right: -72px; }
 }
 @media (max-width: 768px) {
   .menu-grid {
-    grid-template-columns: 1fr;
+    justify-content: flex-start;
   }
+  .menu-item-card {
+    width: 100%;
+    flex-basis: 100%;
+    height: auto;
+    min-height: 200px;
+    aspect-ratio: 1 / 1;
+  }
+  .menu-item-img {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: auto;
+  }
+  .menu-item-details {
+    max-width: 68%;
+  }
+  .menu-carousel-control { display: none; }
+}
+@media (min-width: 769px) {
+  /* Reserve the hover height so the following category never shifts down. */
+  .menu-category { min-height: 500px; }
 }
 .menu-item-card {
+  position: relative;
+  flex: 0 0 300px;
+  width: 300px;
+  height: 300px;
+  padding: 24px;
   background: #ffffff;
-  border: 1px solid var(--line);
+  border: none;
   border-radius: 12px;
-  padding: 12px;
+  overflow: hidden;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-  box-shadow: 0 4px 10px rgba(30, 58, 61, 0.01);
+  flex-direction: column;
+  align-items: flex-start;
+  scroll-snap-align: start;
+  transition: height 0.22s ease, transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(30, 58, 61, 0.06);
+}
+.menu-item-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* The image remains visible at the text edge and reaches full strength on the right. */
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.58) 42%, rgba(255, 255, 255, 0.2) 72%, rgba(255, 255, 255, 0) 100%);
 }
 .menu-item-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(30, 58, 61, 0.04);
-  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(30, 58, 61, 0.1);
+}
+@media (hover: hover) and (min-width: 769px) {
+  .menu-item-card:hover {
+    height: 440px;
+  }
+  .menu-item-card:hover .menu-item-desc {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
 }
 .menu-item-card--selected {
-  border-color: var(--gold);
   background: #fbf9f4;
 }
 .menu-item-img {
-  width: 90px;
-  height: 90px;
-  border-radius: 8px;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
   object-fit: cover;
-  flex-shrink: 0;
-  border: 1px solid var(--line);
+  object-position: right center;
+  border: none;
+  z-index: 0;
 }
 .menu-item-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-self: stretch;
-  flex-grow: 1;
+  max-width: 60%;
   min-width: 0;
+  z-index: 2;
 }
 .menu-item-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
 }
 .menu-item-header {
   display: flex;
@@ -336,6 +434,10 @@ a:focus-visible, button:focus-visible{
   font-weight: 700;
 }
 .menu-item-tag {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 3;
   font-size: 8.5px;
   font-weight: 700;
   text-transform: uppercase;
@@ -361,12 +463,35 @@ a:focus-visible, button:focus-visible{
   font-size: 14.5px;
   color: rgba(34, 32, 27, 0.82);
   line-height: 1.5;
-  margin-top: 8px;
+  margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+.menu-item-card--expanded .menu-item-desc {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+.menu-item-read-more {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--forest);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  cursor: pointer;
+}
+@media (min-width: 769px) {
+  .menu-item-read-more { display: none; }
 }
 
 .menu-item-price {
@@ -374,23 +499,30 @@ a:focus-visible, button:focus-visible{
   font-size: 18px;
   font-weight: 700;
   color: var(--forest);
-  margin-top: 6px;
+  margin-top: 12px;
 }
 
 /* Counter Controls */
 .menu-item-action {
+  position: absolute;
+  right: 24px;
+  bottom: 22px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  align-self: flex-start;
-  margin-top: 4px;
+  gap: 10px;
+  margin: 0;
+  padding: 4px 6px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 7px 18px rgba(19, 39, 40, 0.2);
+  z-index: 3;
 }
 .counter-btn {
   width: 26px;
   height: 26px;
   border-radius: 50%;
   border: 1.5px solid var(--forest);
-  background: transparent;
+  background: #fff;
   color: var(--forest);
   font-family: var(--font-ui);
   font-size: 16px;
@@ -421,12 +553,21 @@ a:focus-visible, button:focus-visible{
   color: var(--forest);
 }
 
+@media (max-width: 768px) {
+  .menu-item-card--expanded {
+    flex-basis: 100%;
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+  }
+}
+
 /* ===== FLOATING ORDER BUILDER DRAWER ===== */
 .order-builder {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 360px;
+  width: min(460px, calc(100vw - 48px));
   background: rgba(19, 39, 40, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -491,11 +632,11 @@ a:focus-visible, button:focus-visible{
   transition: transform 0.3s ease;
 }
 .order-builder-body {
-  padding: 20px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-height: 340px;
+  max-height: 520px;
   overflow-y: auto;
 }
 .order-builder-items {
@@ -560,19 +701,85 @@ a:focus-visible, button:focus-visible{
   flex-direction: column;
   gap: 6px;
 }
+.preview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 .preview-label {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: rgba(244, 235, 208, 0.5);
 }
+.copy-order-btn {
+  border: 1px solid rgba(244, 235, 208, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.copy-order-btn:hover { border-color: var(--gold); color: var(--gold); }
 .preview-text {
+  width: 100%;
+  min-height: 108px;
+  resize: vertical;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
   font-size: 12.5px;
   color: rgba(244, 235, 208, 0.85);
   font-style: italic;
   white-space: pre-wrap;
   word-break: break-word;
   line-height: 1.4;
+  font-family: var(--font-ui);
+  outline: none;
+}
+.preview-text:focus { border-color: rgba(217, 167, 106, 0.75); }
+.cooking-instructions {
+  border: 1px solid rgba(244, 235, 208, 0.16);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: rgba(244, 235, 208, 0.82);
+}
+.cooking-instructions label {
+  display: block;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 700;
+}
+.cooking-instructions label span {
+  color: rgba(244, 235, 208, 0.55);
+  font-weight: 400;
+}
+.cooking-instructions textarea {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid rgba(244, 235, 208, 0.25);
+  border-radius: 0;
+  background: transparent;
+  color: var(--cream);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+}
+.cooking-instructions textarea:focus {
+  border-bottom-color: var(--gold);
+}
+.cooking-instructions textarea::placeholder {
+  color: rgba(244, 235, 208, 0.42);
 }
 .order-builder-actions {
   display: flex;

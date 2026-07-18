@@ -1,0 +1,80 @@
+[
+  {
+    "category": "Sweet Picks",
+    "items": [
+      {
+        "id": "blueberry-muffins",
+        "name": "Blueberry Lemon Muffins",
+        "description": "Freshly baked, light, and fluffy muffins loaded with juicy blueberries and a bright lemon glaze.",
+        "price": "₹ 195",
+        "image": "assets/blueberry-muffins.jpg",
+        "alt": "Blueberry Lemon Muffins",
+        "tag": "Sweet"
+      },
+      {
+        "id": "chocolate-banana-bread",
+        "name": "Double Chocolate Banana Bread",
+        "description": "Rich, moist banana bread packed with premium dark chocolate chips and Dutch-process cocoa.",
+        "price": "₹ 220",
+        "image": "assets/blueberry-muffins.jpg",
+        "alt": "Double Chocolate Banana Bread",
+        "tag": "Sweet"
+      }
+    ]
+  },
+  {
+    "category": "Savoury Favourites",
+    "items": [
+      {
+        "id": "veg-club-sandwich",
+        "name": "The Vegetarian Club Sandwich",
+        "description": "Classic triple-decker with crisp veggies, herbed spread, and sliced cheese on toasted bread.",
+        "price": "₹ 295",
+        "image": "assets/savoury-sandwich.jpg",
+        "alt": "The Vegetarian Club Sandwich",
+        "tag": "Savoury"
+      },
+      {
+        "id": "egg-sando",
+        "name": "Japanese Egg Sando",
+        "description": "Pillow-soft milk bread filled with a rich, creamy, and seasoned Japanese-style egg salad.",
+        "price": "₹ 265",
+        "image": "assets/savoury-sandwich.jpg",
+        "alt": "Japanese Egg Sando",
+        "tag": "Savoury"
+      }
+    ]
+  },
+  {
+    "category": "TBC Specials",
+    "items": [
+      {
+        "id": "cinnamon-rolls",
+        "name": "Cinnamon Rolls with Raspberry Icing",
+        "description": "Warm, gooey cinnamon rolls topped with a signature sweet and tangy raspberry glaze.",
+        "price": "₹ 240",
+        "image": "assets/cinnamon-rolls.jpg",
+        "alt": "Cinnamon Rolls with Raspberry Icing",
+        "tag": "Special"
+      },
+      {
+        "id": "orange-bundt-cake",
+        "name": "Orange Bundt Cake",
+        "description": "Fragrant, citrus-infused bundt cake with a delicate crumb and a fresh orange juice glaze.",
+        "price": "₹ 260",
+        "image": "assets/cinnamon-rolls.jpg",
+        "alt": "Orange Bundt Cake",
+        "tag": "Special"
+      },
+      {
+        "id": "falafel-sandwich",
+        "name": "Falafel Hummus Sandwich",
+        "description": "Crisp house-made falafel patties, creamy smooth hummus, and pickles in fresh toasted bread.",
+        "price": "₹ 280",
+        "image": "assets/savoury-sandwich.jpg",
+        "alt": "Falafel Hummus Sandwich",
+        "tag": "Special"
+      }
+    ]
+  }
+]

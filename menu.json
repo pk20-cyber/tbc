@@ -1,80 +1,114 @@
-[
-  {
-    "category": "Sweet Picks",
-    "items": [
-      {
-        "id": "blueberry-muffins",
-        "name": "Blueberry Lemon Muffins",
-        "description": "Freshly baked, light, and fluffy muffins loaded with juicy blueberries and a bright lemon glaze.",
-        "price": "₹ 195",
-        "image": "assets/blueberry-muffins.jpg",
-        "alt": "Blueberry Lemon Muffins",
-        "tag": "Sweet"
-      },
-      {
-        "id": "chocolate-banana-bread",
-        "name": "Double Chocolate Banana Bread",
-        "description": "Rich, moist banana bread packed with premium dark chocolate chips and Dutch-process cocoa.",
-        "price": "₹ 220",
-        "image": "assets/blueberry-muffins.jpg",
-        "alt": "Double Chocolate Banana Bread",
-        "tag": "Sweet"
-      }
-    ]
-  },
-  {
-    "category": "Savoury Favourites",
-    "items": [
-      {
-        "id": "veg-club-sandwich",
-        "name": "The Vegetarian Club Sandwich",
-        "description": "Classic triple-decker with crisp veggies, herbed spread, and sliced cheese on toasted bread.",
-        "price": "₹ 295",
-        "image": "assets/savoury-sandwich.jpg",
-        "alt": "The Vegetarian Club Sandwich",
-        "tag": "Savoury"
-      },
-      {
-        "id": "egg-sando",
-        "name": "Japanese Egg Sando",
-        "description": "Pillow-soft milk bread filled with a rich, creamy, and seasoned Japanese-style egg salad.",
-        "price": "₹ 265",
-        "image": "assets/savoury-sandwich.jpg",
-        "alt": "Japanese Egg Sando",
-        "tag": "Savoury"
-      }
-    ]
-  },
-  {
-    "category": "TBC Specials",
-    "items": [
-      {
-        "id": "cinnamon-rolls",
-        "name": "Cinnamon Rolls with Raspberry Icing",
-        "description": "Warm, gooey cinnamon rolls topped with a signature sweet and tangy raspberry glaze.",
-        "price": "₹ 240",
-        "image": "assets/cinnamon-rolls.jpg",
-        "alt": "Cinnamon Rolls with Raspberry Icing",
-        "tag": "Special"
-      },
-      {
-        "id": "orange-bundt-cake",
-        "name": "Orange Bundt Cake",
-        "description": "Fragrant, citrus-infused bundt cake with a delicate crumb and a fresh orange juice glaze.",
-        "price": "₹ 260",
-        "image": "assets/cinnamon-rolls.jpg",
-        "alt": "Orange Bundt Cake",
-        "tag": "Special"
-      },
-      {
-        "id": "falafel-sandwich",
-        "name": "Falafel Hummus Sandwich",
-        "description": "Crisp house-made falafel patties, creamy smooth hummus, and pickles in fresh toasted bread.",
-        "price": "₹ 280",
-        "image": "assets/savoury-sandwich.jpg",
-        "alt": "Falafel Hummus Sandwich",
-        "tag": "Special"
-      }
-    ]
-  }
-]
+{
+  "name": "The Brekkie Club — Menu",
+  "pdf": "assets/TheBrekkieClub-Menu.pdf",
+  "categories": [
+     {
+      "category": "BETWEEN THE BREAD",
+      "sub-heading": "Served with a side of chips",
+
+      "items": [
+        {
+          "id": "veg-club-sandwich",
+          "name": "The Vegetarian Club Sandwich",
+          "description": "Layers of grilled paneer, juicy tomatoes, crisp lettuce, onions, and bell peppers with a creamy homestyle sauce, stacked between toasted bread and served with a side of crisps. Hearty, fresh and deeply satisfying.",
+          "price": "₹ 350",
+          "image": "assets/club_sandwich.png",
+          "alt": "The Vegetarian Club Sandwich",
+          "tag": "Savoury"
+        },
+        {
+          "id": "egg-sando",
+          "name": "Japanese Egg Sando",
+          "description": "Soft, fluffy eggs folded into a creamy Japanese-style filling and tucked between pillowy bread. Delicate, comforting, and beautifully simple.",
+          "price": "₹ 330",
+          "image": "assets/egg_sando.png",
+          "alt": "Japanese Egg Sando",
+          "tag": "Savoury"
+        },
+        {
+          "id": "falafel-sandwich",
+          "name": "Falafel Hummus Sandwich",
+          "description": "Crispy falafel layered with creamy hummus, fresh lettuce, cucumber, juicy tomatoes, and a hint of lemon tucked into warm, soft bread. Fresh, herby and authentic.",
+          "price": "₹ 260",
+          "image": "assets/falafel_hummus_sandwich.png",
+          "alt": "Falafel Hummus Sandwich",
+          "tag": "Savoury"
+        }
+      ]
+    },
+     {
+      "category": "SIGNATURE PANCAKES",
+      "items": [
+        {
+          "id": "japanese-souffle-pancakes",
+          "name": "Japanese Soufflé Pancakes",
+          "description": "Light-as-air pancakes with a soft, bouncy texture and delicate sweetness. Served warm with fresh cream and house-style syrup. A delicate indulgence, made to be savored.",
+          "price": "₹ 350",
+          "image": "assets/japanese_soffle_pancake.png",
+          "alt": "Japanese Soufflé Pancakes",
+          "tag": "Special"
+        },
+        {
+          "id": "berry-cream-pancakes",
+          "name": "Berry Cream Pancakes",
+          "description": "Soft, fluffy pancakes served with house-made berry compote, whipped cream and maple syrup. Fruity, buttery and much indulgent.",
+          "price": "₹ 400",
+          "image": "assets/berry_cream.png",
+          "alt": "Berry Cream Pancakes",
+          "tag": "Special"
+        }
+      ]
+    },
+    {
+      "category": "FRESH BAKES",
+      "items": [
+        {
+          "id": "blueberry-muffins",
+          "name": "Blueberry Lemon Muffins",
+          "description": "Made with fresh lemon zest and juicy blueberries, these soft, buttery muffins are light, tangy and baked for that just-out-of-the-oven goodness.",
+          "price": "₹ 150/pc",
+          "image": "assets/blueberry-muffins.png",
+          "alt": "Blueberry Lemon Muffins",
+          "tag": "Sweet"
+        },
+        {
+          "id": "chocolate-banana-bread",
+          "name": "Double Chocolate Banana Bread",
+          "description": "Made with ripe bananas, cocoa and dark chocolate chunks. Moist, fudgy and just the right amount of sweet.Our most loved bake!",
+          "price": "₹ 120/pc",
+          "image": "assets/banana_bread.png",
+          "alt": "Double Chocolate Banana Bread",
+          "tag": "Sweet"
+        },
+        {
+          "id": "cinnamon-rolls",
+          "name": "Cinnamon Rolls with Raspberry Icing.",
+          "description": "Soft, pillowy cinnamon rolls baked fresh and swirled with warm cinnamon sugar. Topped with a fresh raspberry cream frosting that adds just the right richness.",
+          "price": "₹ 250/pc",
+          "image": "assets/cinnamon_rolls.png",
+          "alt": "Cinnamon Rolls",
+          "tag": "Sweet"
+        },
+        {
+          "id": "orange-bundt-cake",
+          "name": "Orange Bundt Cake",
+          "description": "Moist orange Bundt cake made with freshly squeezed orange juice and fragrant orange zest, finished with a light citrus glaze. Bright, tender and delightfully zesty.",
+          "price": "₹ 80/pc",
+          "image": "assets/bundt_cake.png",
+          "alt": "Orange Bundt Cake",
+          "tag": "Sweet"
+        }
+      ]
+    }
+
+  ],
+  "popups": [
+    {
+      "location": "WeWork India, Salapuria Symbiosis",
+      "address": "Bannerghatta Road, Bengaluru",
+      "date": "Thu, 23 Jul",
+      "time": "9 AM – 6 PM"
+    }
+
+  ]
+}

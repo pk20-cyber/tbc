@@ -5,38 +5,6 @@ const WHATSAPP_NUMBER = "8652071503"; // country code + number, no + or spaces
 const INSTAGRAM_HANDLE = "thebrekkieclub"; // without the @
 
 /* =========================================================================
-   POP-UP SCHEDULE — this is the part you'll edit most often.
-   Add, remove, or change entries in this list any time.
-   Just follow the same format for each pop-up:
-
-   {
-     location: "Name of the place",
-     address: "Full address (used for the 'Get Directions' link)",
-     date: "Sat, 12 Jul",
-     time: "9 AM – 1 PM"
-   }
-
-   - The FIRST entry in the list is shown as the featured "Next Up" card.
-   - Add new pop-ups to the list, delete old ones once they've passed.
-   - Leave the list empty ( POPUPS = [] ) if nothing is scheduled — the
-     page will show a friendly "check back soon" message instead.
-   ========================================================================= */
-const POPUPS = [
-  {
-    location: "Sunday Farmers Market",
-    address: "Cubbon Park, Bengaluru",
-    date: "Sun, 13 Jul",
-    time: "9 AM – 1 PM"
-  },
-  {
-    location: "Weekend Craft Bazaar",
-    address: "Indiranagar 12th Main, Bengaluru",
-    date: "Sat, 19 Jul",
-    time: "10 AM – 4 PM"
-  }
-];
-
-/* =========================================================================
    Below this line is display logic — no need to edit anything here.
    ========================================================================= */
 (function(){
@@ -143,10 +111,11 @@ const POPUPS = [
     container.innerHTML = data.map(category => `
       <div class="menu-category">
         <h3 class="category-title">${category.category}</h3>
-        <div class="menu-grid">
-          ${category.items.map(item => `
+        <div class="menu-carousel">
+          <button class="menu-carousel-control menu-carousel-control--prev" type="button" aria-label="Show previous menu items">←</button>
+          <div class="menu-grid">
+            ${category.items.map(item => `
             <div class="menu-item-card" data-item-id="${item.id}">
-              <img class="menu-item-img" src="${item.image}" alt="${item.alt}">
               <div class="menu-item-details">
                 <div class="menu-item-info">
                   <div class="menu-item-header">
@@ -154,6 +123,7 @@ const POPUPS = [
                     <span class="menu-item-tag tag-${item.tag.toLowerCase()}">${item.tag}</span>
                   </div>
                   <p class="menu-item-desc">${item.description}</p>
+                  <button class="menu-item-read-more" type="button" aria-expanded="false">Read more</button>
                   <div class="menu-item-price">${item.price}</div>
                 </div>
                 <div class="menu-item-action">
@@ -162,8 +132,11 @@ const POPUPS = [
                   <button class="counter-btn plus-btn" aria-label="Increase quantity">+</button>
                 </div>
               </div>
+              <img class="menu-item-img" src="${item.image}" alt="${item.alt}">
             </div>
-          `).join('')}
+            `).join('')}
+          </div>
+          <button class="menu-carousel-control menu-carousel-control--next" type="button" aria-label="Show next menu items">→</button>
         </div>
       </div>
     `).join('');
@@ -172,6 +145,7 @@ const POPUPS = [
       const id = card.getAttribute('data-item-id');
       const plusBtn = card.querySelector('.plus-btn');
       const minusBtn = card.querySelector('.minus-btn');
+      const readMoreBtn = card.querySelector('.menu-item-read-more');
 
       if (plusBtn) {
         plusBtn.addEventListener('click', () => adjustItemQuantity(id, 1));
@@ -179,6 +153,36 @@ const POPUPS = [
       if (minusBtn) {
         minusBtn.addEventListener('click', () => adjustItemQuantity(id, -1));
       }
+      if (readMoreBtn) {
+        readMoreBtn.addEventListener('click', () => {
+          const isExpanded = card.classList.toggle('menu-item-card--expanded');
+          readMoreBtn.textContent = isExpanded ? 'Show less' : 'Read more';
+          readMoreBtn.setAttribute('aria-expanded', String(isExpanded));
+        });
+      }
+    });
+
+    container.querySelectorAll('.menu-carousel').forEach(carousel => {
+      const track = carousel.querySelector('.menu-grid');
+      const previous = carousel.querySelector('.menu-carousel-control--prev');
+      const next = carousel.querySelector('.menu-carousel-control--next');
+      const scrollAmount = () => Math.max(track.clientWidth * 0.8, 300);
+
+      const updateControls = () => {
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        previous.hidden = maxScroll <= 1 || track.scrollLeft <= 1;
+        next.hidden = maxScroll <= 1 || track.scrollLeft >= maxScroll - 1;
+      };
+
+      previous?.addEventListener('click', () => track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+      next?.addEventListener('click', () => track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+      track.addEventListener('scroll', updateControls, { passive: true });
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(updateControls).observe(track);
+      } else {
+        window.addEventListener('resize', updateControls);
+      }
+      requestAnimationFrame(updateControls);
     });
   }
 
@@ -191,9 +195,31 @@ const POPUPS = [
       .catch(() => MENU_JSON_FALLBACK);
   }
 
+  function normaliseMenuData(data) {
+    // Supports the current category structure, or a flat list of items with a
+    // `category` field so menu.json can stay simple as the menu grows.
+    const entries = Array.isArray(data)
+      ? data
+      : (data.categories || data.items || MENU_JSON_FALLBACK);
+
+    if (entries.every(entry => Array.isArray(entry.items))) return entries;
+
+    const categories = new Map();
+    entries.forEach(item => {
+      const categoryName = item.category || 'Menu';
+      if (!categories.has(categoryName)) {
+        categories.set(categoryName, { category: categoryName, items: [] });
+      }
+      categories.get(categoryName).items.push(item);
+    });
+    return [...categories.values()];
+  }
+
   loadMenuJson().then(data => {
-    buildMenuIndex(data);
-    renderMenu(data);
+    const menuData = normaliseMenuData(data);
+    buildMenuIndex(menuData);
+    renderMenu(menuData);
+    renderPopups(Array.isArray(data?.popups) ? data.popups : []);
     updateOrder();
   });
 
@@ -215,8 +241,54 @@ const POPUPS = [
   const orderBuilderCount = document.getElementById('order-builder-count');
   const orderBuilderItems = document.getElementById('order-builder-items');
   const orderBuilderPreview = document.getElementById('order-builder-preview-text');
+  const copyOrderButton = document.getElementById('copy-order-btn');
+  const cookingInstructions = document.getElementById('cooking-instructions');
   const orderBuilderWa = document.getElementById('order-builder-whatsapp');
   const orderBuilderClose = document.getElementById('order-builder-close');
+  let isOrderMessageEdited = false;
+
+  function updateOrderLinks(message) {
+    const currentWaLink = getWhatsAppLink(message);
+    document.querySelectorAll('#menu-whatsapp, #sticky-whatsapp, #footer-whatsapp, #order-builder-whatsapp')
+      .forEach(el => {
+        if (el) el.href = currentWaLink;
+      });
+  }
+
+  function messageWithCookingInstructions(message) {
+    const instructions = cookingInstructions?.value.trim();
+    return instructions
+      ? `${message.trim()}\n\nCooking instructions: ${instructions}`
+      : message;
+  }
+
+  if (orderBuilderPreview) {
+    orderBuilderPreview.addEventListener('input', () => {
+      isOrderMessageEdited = true;
+      updateOrderLinks(messageWithCookingInstructions(orderBuilderPreview.value));
+    });
+  }
+
+  if (cookingInstructions) {
+    cookingInstructions.addEventListener('input', () => {
+      updateOrderLinks(messageWithCookingInstructions(orderBuilderPreview?.value || defaultWaMessage));
+    });
+  }
+
+  if (copyOrderButton && orderBuilderPreview) {
+    copyOrderButton.addEventListener('click', async () => {
+      const message = messageWithCookingInstructions(orderBuilderPreview.value);
+      try {
+        await navigator.clipboard.writeText(message);
+      } catch {
+        orderBuilderPreview.select();
+        document.execCommand('copy');
+        orderBuilderPreview.setSelectionRange(0, 0);
+      }
+      copyOrderButton.textContent = 'Copied!';
+      window.setTimeout(() => { copyOrderButton.textContent = 'Copy'; }, 1600);
+    });
+  }
 
   // Toggle Minimize Order Builder
   let isMinimized = false;
@@ -271,12 +343,10 @@ const POPUPS = [
       messageText = `Hi The Brekkie Club! I'd like to place a pre-order:\n\n${itemListText}\n\nPlease confirm!`;
     }
 
-    // Update WhatsApp links
-    const currentWaLink = getWhatsAppLink(messageText);
-    document.querySelectorAll('#menu-whatsapp, #sticky-whatsapp, #footer-whatsapp, #order-builder-whatsapp')
-      .forEach(el => {
-        if (el) el.href = currentWaLink;
-      });
+    if (!isOrderMessageEdited && orderBuilderPreview) {
+      orderBuilderPreview.value = messageText;
+    }
+    updateOrderLinks(messageWithCookingInstructions(orderBuilderPreview?.value || messageText));
 
     // Update Order Builder Drawer UI
     if (totalItems > 0) {
@@ -306,13 +376,14 @@ const POPUPS = [
       }
 
       // Update message preview
-      if (orderBuilderPreview) {
-        orderBuilderPreview.textContent = `"${messageText.replace(/\n/g, ' ')}"`;
-      }
     } else {
       orderBuilder.classList.remove('order-builder--visible');
       orderBuilder.classList.remove('order-builder--minimized');
       isMinimized = false;
+      isOrderMessageEdited = false;
+      if (orderBuilderPreview) orderBuilderPreview.value = defaultWaMessage;
+      if (cookingInstructions) cookingInstructions.value = '';
+      updateOrderLinks(defaultWaMessage);
     }
   }
 
@@ -351,10 +422,17 @@ const POPUPS = [
     return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
   }
 
-  if (!POPUPS.length){
-    if (empty) empty.style.display = 'block';
-  } else {
-    const [next, ...rest] = POPUPS;
+  function renderPopups(popups) {
+    if (featuredWrap) featuredWrap.innerHTML = '';
+    if (list) list.innerHTML = '';
+
+    if (!popups.length){
+      if (empty) empty.style.display = 'block';
+      return;
+    }
+
+    if (empty) empty.style.display = 'none';
+    const [next, ...rest] = popups;
 
     if (featuredWrap) {
       featuredWrap.innerHTML = `
