@@ -1,7 +1,7 @@
 /* =========================================================================
    CONTACT SETTINGS — edit these two lines to go live
    ========================================================================= */
-const WHATSAPP_NUMBER = "8652071503"; // country code + number, no + or spaces
+const WHATSAPP_NUMBER = "8432123863"; // country code + number, no + or spaces
 const INSTAGRAM_HANDLE = "thebrekkieclubb"; // without the @
 
 /* =========================================================================
