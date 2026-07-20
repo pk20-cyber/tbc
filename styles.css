@@ -324,7 +324,10 @@ a:focus-visible, button:focus-visible{
 }
 @media (max-width: 768px) {
   .menu-grid {
+    flex-wrap: wrap;
     justify-content: flex-start;
+    overflow: visible;
+    scroll-snap-type: none;
   }
   .menu-item-card {
     width: 100%;

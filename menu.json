@@ -3,40 +3,6 @@
   "pdf": "assets/TheBrekkieClub-Menu.pdf",
   "categories": [
      {
-      "category": "BETWEEN THE BREAD",
-      "sub-heading": "Served with a side of chips",
-
-      "items": [
-        {
-          "id": "veg-club-sandwich",
-          "name": "The Vegetarian Club Sandwich",
-          "description": "Layers of grilled paneer, juicy tomatoes, crisp lettuce, onions, and bell peppers with a creamy homestyle sauce, stacked between toasted bread and served with a side of crisps. Hearty, fresh and deeply satisfying.",
-          "price": "₹ 350",
-          "image": "assets/club_sandwich.png",
-          "alt": "The Vegetarian Club Sandwich",
-          "tag": "Savoury"
-        },
-        {
-          "id": "egg-sando",
-          "name": "Japanese Egg Sando",
-          "description": "Soft, fluffy eggs folded into a creamy Japanese-style filling and tucked between pillowy bread. Delicate, comforting, and beautifully simple.",
-          "price": "₹ 330",
-          "image": "assets/egg_sando.png",
-          "alt": "Japanese Egg Sando",
-          "tag": "Savoury"
-        },
-        {
-          "id": "falafel-sandwich",
-          "name": "Falafel Hummus Sandwich",
-          "description": "Crispy falafel layered with creamy hummus, fresh lettuce, cucumber, juicy tomatoes, and a hint of lemon tucked into warm, soft bread. Fresh, herby and authentic.",
-          "price": "₹ 260",
-          "image": "assets/falafel_hummus_sandwich.png",
-          "alt": "Falafel Hummus Sandwich",
-          "tag": "Savoury"
-        }
-      ]
-    },
-     {
       "category": "SIGNATURE PANCAKES",
       "items": [
         {
@@ -59,7 +25,7 @@
         }
       ]
     },
-    {
+      {
       "category": "FRESH BAKES",
       "items": [
         {
@@ -99,7 +65,42 @@
           "tag": "Sweet"
         }
       ]
+    },
+     {
+      "category": "BETWEEN THE BREAD",
+      "sub-heading": "Served with a side of chips",
+
+      "items": [
+        {
+          "id": "egg-sando",
+          "name": "Japanese Egg Sando",
+          "description": "Soft, fluffy eggs folded into a creamy Japanese-style filling and tucked between pillowy bread. Delicate, comforting, and beautifully simple.",
+          "price": "₹ 330",
+          "image": "assets/egg_sando.png",
+          "alt": "Japanese Egg Sando",
+          "tag": "Savoury"
+        },
+        {
+          "id": "falafel-sandwich",
+          "name": "Falafel Hummus Sandwich",
+          "description": "Crispy falafel layered with creamy hummus, fresh lettuce, cucumber, juicy tomatoes, and a hint of lemon tucked into warm, soft bread. Fresh, herby and authentic.",
+          "price": "₹ 260",
+          "image": "assets/falafel_hummus_sandwich.png",
+          "alt": "Falafel Hummus Sandwich",
+          "tag": "Savoury"
+        }, {
+          "id": "veg-club-sandwich",
+          "name": "The Vegetarian Club Sandwich",
+          "description": "Layers of grilled paneer, juicy tomatoes, crisp lettuce, onions, and bell peppers with a creamy homestyle sauce, stacked between toasted bread and served with a side of crisps. Hearty, fresh and deeply satisfying.",
+          "price": "₹ 350",
+          "image": "assets/club_sandwich.png",
+          "alt": "The Vegetarian Club Sandwich",
+          "tag": "Savoury"
+        }
+      ]
     }
+
+  
 
   ],
   "popups": [
